@@ -18,22 +18,25 @@
     <br><br>
     <div class="container">
         <form action="home.html" onsubmit="check()">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username" required>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-            </div>
-            <br>
-            <input type="submit" value="Sign in" class="btn btn-success col-md-3">
+            <fieldset>
+                <legend>Fill details</legend>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                </div>
+                <br>
+                <input type="submit" value="Sign in" class="btn btn-success col-md-3">
+            </fieldset>
             
         </form>
         <br>
-        <a href="signup.html"><button class="btn btn-primary col-md-3">Create
-            account</button></a>
+        <a href="signup.html">Create
+            account</a>
 
 </span>
     </div>

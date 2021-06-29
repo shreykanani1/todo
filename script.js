@@ -2,6 +2,9 @@
 var a = new Array();
 // console.log(localstorage.getItem("data"));
 let tg = localStorage.getItem("data");
+const d = new Date();
+// console.dir(`${d.getDate()}/${d.getMonth()}/${d.getFullYear()} at ${d.getHours()}:${d.getMinutes()}`);
+console.dir(document.getElementById("welcome"))
 
 function store() {
   var todos = [];
@@ -35,6 +38,7 @@ function store() {
   localStorage.setItem("activeAccount", username1);
 
   window.location.href = "home.html";
+  document.getElementById("welcome").innerText = `Welcome ${username1}`;
   showNotes();
 }
 
@@ -53,6 +57,7 @@ function check() {
     // console.log(data[i]);
     if (data[i].username == username1 && data[i].password == password1) {
       window.location.href = "home.html";
+      
       count++;
       localStorage.setItem("activeAccount", data[i].username);
       break;
@@ -70,7 +75,11 @@ function check() {
 function addNote() {
   console.log("hello")
   let addBtn = document.getElementById("addBtn");
-  let addTxt = document.getElementById("addTxt").value;
+  let addTxt1 = document.getElementById("addTxt").value;
+
+  let currentTime = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()} at ${d.getHours()}:${d.getMinutes()}`;
+  let addTxt = {"notedata":addTxt1,"time":currentTime};
+
   document.getElementById("addTxt").value = "";
   let data = JSON.parse(localStorage.getItem("data"));
   let username = localStorage.getItem("activeAccount");
@@ -92,17 +101,22 @@ function showNotes() {
   for (let i = 0; i < data.length; i++) {
     if (data[i].username == username) {
       var notesArr = data[i].todos;
+      document.getElementById("welcome").innerText = `Welcome ${data[i].fname}`;
+      // console.log(notesArr);
     }
   }
 
 
+
   let html = "";
   notesArr.forEach(function (element, index) {
+    // console.log(element);
     html += `
             <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Note ${index + 1}</h5>
-                        <textarea class="card-text" id="${index}Note"> ${element}</textarea>
+                        <p>${element["time"]}</p>
+                        <textarea rows="5" cols="25" class="card-text" id="${index}Note"> ${element["notedata"]}</textarea>
                         <button id="${index}"onclick="deleteNote(this.id)" class="btn btn-danger">Delete Note</button>
                         <button class="btn btn-primary" id="${index}" onclick="editNote(this.id)">Edit Note</button>
                     </div>
@@ -145,7 +159,9 @@ function editNote(index) {
     }
   }
   // console.log(notesArr);
-  let newNote = document.getElementById(`${index}Note`).value;
+  let newNote1 = document.getElementById(`${index}Note`).value;
+  let currentTime = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()} at ${d.getHours()}:${d.getMinutes()}`;
+  let newNote = {"notedata":newNote1,"time":currentTime};
   // console.log(newNote);
   notesArr.splice(index, 1, newNote);
   // console.log(data);
@@ -163,7 +179,7 @@ function editPageFillDeails() {
     if (user == allUser[index].username) {
       document.getElementById("fname1").value = allUser[index].fname;
       document.getElementById("lname1").value = allUser[index].lname;
-      // document.getElementById("username1").value = allUser[index].username;
+      document.getElementById("username1").value = allUser[index].username;
       document.getElementById("password1").value = allUser[index].password;
     }
   }
@@ -226,3 +242,5 @@ search.addEventListener("input", function () {
     }
   });
 });
+
+// document.getElementById("today").addEventListener("click",)
